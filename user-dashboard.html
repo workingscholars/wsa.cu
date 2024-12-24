@@ -719,7 +719,7 @@
                                             <span class="badge bg-danger rounded-pill">Unlimited</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Less CL Hours
+                                            CL Voucher
                                             <span class="badge bg-success rounded-pill">129 Hours</span>
                                         </li>
                                     </ul>
@@ -1323,6 +1323,114 @@ function logDownload(studentId) {
         tempContainer.style.left = '-9999px';
         tempContainer.appendChild(clonedArea);
         document.body.appendChild(tempContainer);
+
+        // Calculate Grade Level w/ Motivation
+        function calculateGradeLevel(grade) {
+    if (grade >= 1.0 && grade < 1.5) {
+        return {
+            level: "Summa Cum Laude",
+            color: "success",
+            message: "Congratulations! 🏆 You did an OUTSTANDING job! Your academic excellence is truly remarkable!",
+            icon: "fas fa-trophy"
+        };
+    } else if (grade >= 1.5 && grade < 2.0) {
+        return {
+            level: "Magna Cum Laude",
+            color: "primary",
+            message: "Excellent performance! 👏 Keep up the great work and maintain your momentum!",
+            icon: "fas fa-star"
+        };
+    } else if (grade >= 2.0 && grade < 2.5) {
+        return {
+            level: "Cum Laude",
+            color: "info",
+            message: "Great job! 👍 You're doing well, continue to strive for excellence!",
+            icon: "fas fa-award"
+        };
+    } else if (grade >= 2.5 && grade < 3.0) {
+        return {
+            level: "Satisfactory",
+            color: "warning",
+            message: "You're on the right track! 💪 Keep pushing and improving yourself!",
+            icon: "fas fa-chart-line"
+        };
+    } else if (grade >= 3.0 && grade < 5.0) {
+        return {
+            level: "Passing",
+            color: "secondary",
+            message: "You passed, but there's room for improvement. 🌱 Stay motivated and keep learning!",
+            icon: "fas fa-book-reader"
+        };
+    } else if (grade === 5.0) {
+        return {
+            level: "Failed",
+            color: "danger",
+            message: "Don't give up! 💡 Every setback is an opportunity to learn and grow stronger. Seek help, stay persistent!",
+            icon: "fas fa-heart-broken"
+        };
+    }
+}
+
+function renderGradesWithMotivation() {
+    const gradesTable = document.getElementById('gradesTable');
+    const tbody = gradesTable.querySelector('tbody');
+    const averageGradeElement = document.getElementById('finalAverage');
+    
+    let totalGrades = [];
+    let gradeDetails = [];
+
+    // Collect grades and calculate details
+    tbody.querySelectorAll('tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const finalGrade = parseFloat(cells[3].textContent);
+        
+        totalGrades.push(finalGrade);
+        
+        const gradeInfo = calculateGradeLevel(finalGrade);
+        
+        // Update row with grade interpretation
+        row.innerHTML = `
+            <td>${cells[0].textContent}</td>
+            <td>${cells[1].textContent}</td>
+            <td>${cells[2].textContent}</td>
+            <td>${cells[3].textContent}</td>
+            <td>
+                <span class="badge bg-${gradeInfo.color} grade-badge">
+                    <i class="${gradeInfo.icon} me-1"></i>${gradeInfo.level}
+                </span>
+            </td>
+        `;
+        
+        gradeDetails.push(gradeInfo);
+    });
+
+    // Calculate average
+    const averageGrade = totalGrades.reduce((a, b) => a + b, 0) / totalGrades.length;
+    averageGradeElement.textContent = averageGrade.toFixed(2);
+
+    // Overall Grade Motivation
+    const overallGradeInfo = calculateGradeLevel(averageGrade);
+    
+    // Create motivation section
+    const motivationSection = document.createElement('div');
+    motivationSection.className = 'motivation-section alert alert-' + overallGradeInfo.color;
+    motivationSection.innerHTML = `
+        <h4>
+            <i class="${overallGradeInfo.icon} me-2"></i>
+            ${overallGradeInfo.level} Performance
+        </h4>
+        <p>${overallGradeInfo.message}</p>
+    `;
+
+    // Insert motivation section
+    const gradesContainer = document.querySelector('#grades .container.mt-4');
+    gradesContainer.insertBefore(motivationSection, gradesContainer.firstChild);
+}
+
+// Call this function when grades section is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    renderGradesWithMotivation();
+});
         
         // Capture the cloned area
         html2canvas(clonedArea, {
