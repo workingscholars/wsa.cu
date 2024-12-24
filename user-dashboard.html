@@ -39,10 +39,27 @@
             z-index: 1000;
     }
 
+    .nav-menu .container {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        justify-content: flex-start; /* Aligns items to the start/left */
+    }
+
     .nav-logo {
-        max-height: 50px;
-        max-width: 100px;
+        border-radius: 20px;
+        max-height: 150px;
+        max-width: 200px;
+        margin-right: 500px;
         object-fit: contain;
+    }
+
+    /* Smaller screens */
+    @media (max-width: 768px) {
+        .nav-logo {
+            max-height: 50px;
+            max-width: 80px;
+        }
     }
 
     .nav-menu .nav-links a {
@@ -94,6 +111,31 @@
         color: white;
         padding: 10px;
         border-radius: 5px 5px 0 0;
+    }
+
+    .profile-image-container {
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-image-container img {
+        transition: all 0.3s ease;
+    }
+
+    .profile-image-container:hover img {
+        transform: scale(1.1);  /* Slight zoom on hover */
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);  /* Subtle shadow */
+        cursor: pointer;
+    }
+
+    /* Optional: Subtle rotation effect */
+    .profile-image-container:hover img {
+        transform: scale(1.1) rotate(2deg);
+    }
+
+    /* Soft glow effect */
+    .profile-image-container:hover img {
+        box-shadow: 0 0 20px rgba(153, 0, 0, 0.3);  /* Using your crimson color */
     }
 
     /* Section Content Styling */
@@ -242,6 +284,23 @@
         margin-bottom: 5px;
     }
 
+    .membership-card {
+        border: 2px solid var(--crimson-primary);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .membership-points-section .progress {
+        height: 30px;
+    }
+
+    .membership-benefits .list-group-item {
+        transition: all 0.3s ease;
+    }
+
+    .membership-benefits .list-group-item:hover {
+        background-color: rgba(211, 47, 47, 0.1);
+    }
+
     .nav-links a:hover .nav-icon-circle {
         background-color: rgba(255,255,255,0.2);
         transform: scale(1.1);
@@ -251,12 +310,32 @@
         font-size: 0.8em;
     }
 
+.developer-tooltip-custom {
+    --bs-tooltip-bg: #990000;  /* Your crimson primary color */
+    --bs-tooltip-color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
 
     .downloadable-area {
     border: 1px solid #dee2e6;
     background-color: #f8f9fa;
     width: 100%;
     align-items: center;
+    }
+
+    .student-details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px; /* Adjust the space between 2090389 and BSIT-1 */
+    }
+
+    .student-id, .student-course {
+        margin: 0;
+        font-size: 0.9em;
+        color: #666;
     }
 
     .student-info, .semester-info {
@@ -356,7 +435,7 @@
         <div class="row align-items-center">
             <div class="col-2">
                 <!-- Logo placement -->
-                <img src="assets/logo/wsa.png" alt="WSA Logo" class="nav-logo">
+                <img src="assets/images/dashboard.png" alt="WSA x CU Logo" class="nav-logo">
             </div>
             <div class="col-10">
                 <div class="nav-links text-center">
@@ -377,6 +456,12 @@
                             <i class="fas fa-book"></i>
                         </div>
                         <span>Student Ledger</span>
+                    </a>
+                    <a href="#membership" data-section="membership">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <span>Membership</span>
                     </a>
                     <a href="#obligations" data-section="obligations">
                         <div class="nav-icon-circle">
@@ -411,8 +496,10 @@
                     <img src="assets/user-profile/Jcrist.jpg" class="rounded-circle" alt="Profile Picture" style="width: 200px; height: 200px; object-fit: cover; object-position: center;">
                 </div>
                 <h4>Jcrist Vincent Orhen</h4>
-                <p>2090389</p>
-                <p>BSIT-1</p>
+                <div class="student-details">
+                    <p class="student-id">2090389</p>
+                    <p class="student-course">BSIT-1</p>
+                </div>
             </div>
                 <div class="col-md-8">
                     <div class="info-section">
@@ -566,6 +653,86 @@
             </div>
         </div>
 
+        <!-- Membership Card Section -->
+<div id="membership" class="section-content" style="display:none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card membership-card">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="mb-0">Membership Card</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <img 
+                                    src="assets/user-profile/Jcrist.jpg" 
+                                    class="img-fluid rounded-circle mb-3" 
+                                    style="max-width: 200px; border: 4px solid var(--crimson-primary);"
+                                >
+                                <h4>Jcrist Vincent Orhen</h4>
+                                <p>2090389</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="membership-points-section">
+                                    <h5>Membership Points</h5>
+                                    <div class="progress mb-3">
+                                        <div 
+                                            class="progress-bar bg-danger" 
+                                            role="progressbar" 
+                                            style="width: 65%;" 
+                                            aria-valuenow="65" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100"
+                                        >
+                                            650 Points
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <h6>Recommended Points</h6>
+                                            <p class="text-danger">500</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <h6>Total Points</h6>
+                                            <p class="text-danger">2,587</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <h6>Rank</h6>
+                                            <p class="text-danger">Silver</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <h6>Status</h6>
+                                            <p class="text-success">Active</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="membership-benefits mt-4">
+                                    <h5>Membership Benefits</h5>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Clearance Permit
+                                            <span class="badge bg-success rounded-pill">Approved</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Free Consultation
+                                            <span class="badge bg-danger rounded-pill">Unlimited</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Less CL Hours
+                                            <span class="badge bg-success rounded-pill">129 Hours</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
         <!-- Obligations Section -->
 <div id="obligations" class="section-content" style="display:none;">
         <div class="obligations-container">
@@ -654,8 +821,7 @@
                 </div>
             </div>
         </div>
-
-
+                        <!-- Download Confirm Modal -->
                         <div class="modal fade" id="downloadConfirmModal" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
