@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
     :root {
         --crimson-primary: #990000;
@@ -19,6 +18,7 @@
 
     body {
         background-color: #f4f6f9;
+        padding-top: 100px; /* Adjust based on navbar height */
     }
 
     .nav-menu::before {
@@ -34,9 +34,15 @@
     }
 
     .nav-menu {
-        background-color: var(--crimson-light);
-        padding: 10px 0;
-        position: relative; /* Allow absolute positioning of logo */
+            background-color: var(--crimson-light);
+            padding: 10px 0;
+            z-index: 1000;
+    }
+
+    .nav-logo {
+        max-height: 50px;
+        max-width: 100px;
+        object-fit: contain;
     }
 
     .nav-menu .nav-links a {
@@ -51,9 +57,20 @@
         transform: scale(1.1);
     }
 
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
     .nav-links a {
-        position: relative;
-        z-index: 2; /* Ensure links are above the overlay */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
     }
 
     .profile-section {
@@ -63,12 +80,80 @@
         margin-top: 20px;
     }
 
+    .nav-links a.active .nav-icon-circle {
+        background-color: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+    }
+
+    .nav-links a.active span {
+        font-weight: bold;
+    }
+
     .section-header {
         background-color: var(--crimson-primary);
         color: white;
         padding: 10px;
         border-radius: 5px 5px 0 0;
     }
+
+    /* Section Content Styling */
+    .section-content {
+        display: none;
+        padding: 20px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Logout Icon Styling */
+    .logout-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .logout-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        margin-bottom: 5px;
+    }
+
+    .logout-link:hover .logout-circle {
+        background-color: rgba(255,255,255,0.2);
+        transform: scale(1.1);
+    }
+
+    .logout-text {
+        font-size: 0.8em;
+        color: white;
+    }
+
+    /* Ensure logout icon is visible and styled consistently */
+    .nav-menu .logout-link {
+        color: white;
+    }
+
+    .nav-menu .logout-circle i {
+        color: white;
+    }
+
+    /* Ensure obligations are properly placed */
+    #obligations {
+        display: none;
+    }
+
         .profile-image-container {
         display: flex;
         justify-content: center;
@@ -138,46 +223,182 @@
         color: white;
     }
 
-    .nav-logo {
-        position: absolute;
-        left: 20px; /* Adjust distance from left */
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .nav-logo img {
-        max-height: 50px; /* Adjust logo height */
-        max-width: 150px; /* Adjust logo width */
-    }
-
     .nav-links {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative; /* Ensure proper positioning */
     }
+
+    .nav-icon-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        margin-bottom: 5px;
+    }
+
+    .nav-links a:hover .nav-icon-circle {
+        background-color: rgba(255,255,255,0.2);
+        transform: scale(1.1);
+    }
+
+    .nav-links a span {
+        font-size: 0.8em;
+    }
+
+
+    .downloadable-area {
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    width: 100%;
+    align-items: center;
+    }
+
+    .student-info, .semester-info {
+        font-size: 0.9rem;
+    }
+
+    .approval-info {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    /* Spinning animation for refresh button */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .fa-spin {
+        animation: spin 1s linear infinite;
+    }
+
+        /* Obligations Section Styling */
+    .obligations-container {
+        max-width: 800px; /* Adjust base width */
+        margin: 0 auto; /* Center the container */
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .downloadable-area {
+        max-width: 300px; /* Adjust permit area width */
+        margin: 0 auto;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .obligations-container {
+            max-width: 95%;
+            padding: 10px;
+        }
+
+        .downloadable-area {
+            max-width: 100%;
+            padding: 15px;
+        }
+
+        .semester-term-selectors {
+            flex-direction: column;
+        }
+
+        .semester-term-selectors > div {
+            margin-bottom: 10px;
+        }
+    }
+
+    /* Selector and Refresh Area */
+    .semester-term-selectors {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .selector-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .selector-group label {
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .download-icon {
+        transition: transform 0.2s ease;
+    }
+
+    .download-icon:hover {
+        transform: scale(1.1);
+        color: var(--crimson-primary);
+    }
 </style>
 </head>
 <body>
 
 <!-- Navigation Menu -->
-<div class="nav-menu">
-    <div class="nav-links text-center">
-        <a href="#profile" data-section="profile">
-            <i class="fas fa-user"></i> Profile
-        </a>
-        <a href="#grades" data-section="grades">
-            <i class="fas fa-graduation-cap"></i> Grades
-        </a>
-        <a href="#ledger" data-section="ledger">
-            <i class="fas fa-book"></i> Student Ledger
-        </a>
-        <a href="#obligations" data-section="obligations">
-            <i class="fas fa-exclamation-triangle"></i> Obligations
-        </a>
-        <a href="#studyloads" data-section="studyloads">
-            <i class="fas fa-clipboard-list"></i> Study Loads
-        </a>
+<div class="nav-menu fixed-top">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-2">
+                <!-- Logo placement -->
+                <img src="assets/logo/wsa.png" alt="WSA Logo" class="nav-logo">
+            </div>
+            <div class="col-10">
+                <div class="nav-links text-center">
+                    <a href="#profile" data-section="profile">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#grades" data-section="grades">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <span>Grades</span>
+                    </a>
+                    <a href="#ledger" data-section="ledger">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <span>Student Ledger</span>
+                    </a>
+                    <a href="#obligations" data-section="obligations">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <span>Obligations</span>
+                    </a>
+                    <a href="#studyloads" data-section="studyloads">
+                        <div class="nav-icon-circle">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <span>Study Loads</span>
+                    </a>
+                    <a href="#" class="logout-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <div class="nav-icon-circle logout-circle">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <span class="logout-text">Logout</span>
+                </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -187,10 +408,7 @@
         <div class="row profile-section">
             <div class="col-md-4 text-center">
                 <div class="profile-image-container mb-3">
-                    <img src="assets/user-profile/Jcrist.jpg" 
-                         class="rounded-circle" 
-                         alt="Profile Picture" 
-                         style="width: 200px; height: 200px; object-fit: cover; object-position: center;">
+                    <img src="assets/user-profile/Jcrist.jpg" class="rounded-circle" alt="Profile Picture" style="width: 200px; height: 200px; object-fit: cover; object-position: center;">
                 </div>
                 <h4>Jcrist Vincent Orhen</h4>
                 <p>2090389</p>
@@ -349,19 +567,110 @@
         </div>
 
         <!-- Obligations Section -->
-        <div id="obligations" class="section-content" style="display:none;">
-            <div class="card">
-                <div class="card-header bg-danger text-white">Obligations</div>
-                <div class="card-body">
-                    <div class="accordion" id="obligationsAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#permits">
-                                    Permits
-                                </button>
-                            </h2>
-                            <div id="permits" class="accordion-collapse collapse show">
-                                <div class="accordion-body"> Content related to permits will be displayed here.
+<div id="obligations" class="section-content" style="display:none;">
+        <div class="obligations-container">
+            <div class="accordion" id="obligationsAccordion">
+                <!-- Your existing obligations content -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#permits">
+                            Permits
+                        </button>
+                    </h2>
+                    <div id="permits" class="accordion-collapse collapse show">
+                        <!-- Permits content -->
+                <div class="accordion-body">
+                    <!-- Semester and Term Selectors -->
+                    <div class="semester-term-selectors">
+                        <div class="selector-group">
+                            <label>Semester:</label>
+                            <select class="form-select form-select-sm" id="semesterSelector">
+                                <option>First Semester SY 2024-2025</option>
+                            </select>
+                        </div>
+                        
+                        <div class="selector-group">
+                            <label>Term:</label>
+                            <select class="form-select form-select-sm" id="termSelector">
+                                <option>PRELIM</option>
+                                <option>MIDTERM</option>
+                                <option>FINALS</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <button class="btn btn-outline-secondary btn-sm" id="refreshPermits">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Downloadable Permit Area -->
+                    <div class="downloadable-area mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Exam Permit</h5>
+                            <button id="downloadPermit" class="btn btn-link text-secondary download-icon" title="Download Permit">
+                                <i class="fas fa-circle-arrow-down fa-2x"></i>
+                            </button>
+                        </div>
+
+                        <div class="permit-details">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="student-info">
+                                        <div>Orhen, Jcrist Vincent</div>
+                                        <div>2090389</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <div class="semester-info">
+                                        <div>First Semester SY 2024-2025</div>
+                                        <div>MIDTERM</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-4">
+                                <div class="text-success">
+                                    <i class="fas fa-circle-check fa-7x"></i>
+                                    <div class="mt-2">
+                                        <strong>Allowed to take exam</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="approval-info text-center">
+                                <div>
+                                    <span>Approved by: </span>
+                                    <span class="fw-bold">gamaya.nanette</span>
+                                </div>
+                                <div>
+                                    <span>Approved on: </span>
+                                    <span class="fw-bold">Oct 26, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                        <div class="modal fade" id="downloadConfirmModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-success text-white">
+                                        <h5 class="modal-title">Receipt Downloaded</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <i class="fas fa-file-download fa-4x text-success mb-3"></i>
+                                        <h4>Download Successful</h4>
+                                        <p>Your receipt has been downloaded as 2090389.jpg</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -419,29 +728,47 @@
         </div>
 
         <!-- Study Loads Section -->
-        <div id="studyloads" class="section-content" style="display:none;">
-            <div class="card">
-                <div class="card-header bg-danger text-white">Study Loads</div>
-                <div class="card-body">
-                    <h5>Semester: First Semester SY 2024-2025</h5>
-                    <p>Enrollment Status: ENROLLED</p>
-                    <p>Semester Total Units: 15 unit(s)</p>
-                    <table id="study-loads-table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Section Code</th>
-                                <th>Subject</th>
-                                <th>Description</th>
-                                <th>Units</th>
-                                <th>Time</th>
-                                <th>Day</th>
-                                <th>Room</th>
-                                <th>Block Code</th>
-                                <th>Instructor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
+<div id="studyloads" class="section-content" style="display:none;">
+    <div class="card">
+        <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <span></span>
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <select class="form-select form-select-sm" id="semesterSelector">
+                        <option>FIRST SEM SY 2024-2025</option>
+                    </select>
+                </div>
+                <button class="btn btn-light btn-sm" id="refreshStudyLoads" title="Refresh Study Loads">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p class="mb-1"><strong>Enrollment Status:</strong> ENROLLED</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="mb-1"><strong>Semester Total Units:</strong> 15 unit(s)</p>
+                </div>
+            </div>
+
+            <table id="study-loads-table" class="table table-striped table-hover">
+                <thead class="table-danger">
+                    <tr>
+                        <th>Section Code</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                        <th>Units</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                        <th>Room</th>
+                        <th>Block Code</th>
+                        <th>Instructor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                                                <tr>
                                 <td>IT1</td>
                                 <td>ORIENT 1</td>
                                 <td>GENERAL ORIENTATION</td>
@@ -540,13 +867,11 @@
                                 <td>WSA/SF</td>
                                 <td>AMOR YAMOMO MENDOZA</td>
                             </tr>
-                            <!-- Add other study load entries here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
  <!-- Add this just before the closing </body> tag -->
 <!-- Logout Modal -->
@@ -574,12 +899,24 @@
 
 <!-- Modify the existing script section to include logout functionality -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
         // Call the function when page loads
         window.onload = calculateFinalAverage;
+document.addEventListener('DOMContentLoaded', function() {
     // Navigation menu click handler
     document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active state from all links
+            document.querySelectorAll('.nav-links a').forEach(navLink => {
+                navLink.classList.remove('active');
+            });
+            
+            // Add active state to clicked link
+            this.classList.add('active');
+            
             // Hide all sections
             document.querySelectorAll('.section-content').forEach(section => {
                 section.style.display = 'none';
@@ -587,36 +924,28 @@
             
             // Show selected section
             const target = this.getAttribute('data-section');
-            document.getElementById(target).style.display = 'block';
+            const targetSection = document.getElementById(target);
+            
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
         });
     });
 
-    // Logout functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add logout modal trigger to navigation
-        const logoutLink = document.createElement('a');
-        logoutLink.href = '#';
-        logoutLink.innerHTML = 'Logout';
-        logoutLink.setAttribute('data-bs-toggle', 'modal');
-        logoutLink.setAttribute('data-bs-target', '#logoutModal');
-        document.querySelector('.nav-links').appendChild(logoutLink);
+    // Initially show profile section and set its menu item as active
+    document.getElementById('profile').style.display = 'block';
+    document.querySelector('a[data-section="profile"]').classList.add('active');
+});
 
         // Confirm logout button
         document.getElementById('confirmLogout').addEventListener('click', function() {
-            // Perform logout actions
-            // For example:
-            // 1. Clear session storage
-            // 2. Clear local storage
-            // 3. Redirect to login page
-            
-            // Example logout actions
+            // Performing log out actions
             localStorage.clear();
             sessionStorage.clear();
             
             // Redirect to login page (replace with your actual login page URL)
             window.location.href = 'index.html';
         });
-    });
 
     // Calculate Grades
     function calculateFinalAverage() {
@@ -651,5 +980,211 @@
     } else {
         navMenu.classList.remove('sticky');
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Semester Selector Functionality
+    const semesterSelector = document.getElementById('semesterSelector');
+    const refreshButton = document.getElementById('refreshStudyLoads');
+
+    semesterSelector.addEventListener('change', function() {
+        // Add functionality to load study loads for selected semester
+        console.log('Selected Semester:', this.value);
+        // You can add AJAX call here to fetch semester-specific study loads
+    });
+
+    refreshButton.addEventListener('click', function() {
+        // Add refresh functionality
+        console.log('Refreshing study loads for:', semesterSelector.value);
+        
+        // Optional: Add loading animation
+        this.classList.add('spinning');
+        
+        // Simulate refresh (replace with actual data fetch)
+        setTimeout(() => {
+            this.classList.remove('spinning');
+            // Add your refresh logic here
+        }, 1000);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const semesterSelector = document.getElementById('semesterSelector');
+    const refreshButton = document.getElementById('refreshPermits');
+    const downloadButton = document.getElementById('downloadPermit');
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const termSelector = document.getElementById('termSelector');
+    
+    // Permit data object
+    const permitData = {
+        'PRELIM': {
+            term: 'PRELIM',
+            approvedBy: 'gamaya.nanette',
+            approvedOn: 'Sep 14, 2024',
+            status: 'Allowed to take exam'
+        },
+        'MIDTERM': {
+            term: 'MIDTERM',
+            approvedBy: 'gamaya.nanette',
+            approvedOn: 'Oct 11, 2024',
+            status: 'Allowed to take exam'
+        },
+        'FINALS': {
+            term: 'FINALS',
+            approvedBy: 'gamaya.nanette',
+            approvedOn: 'Nov 28, 2024',
+            status: 'Allowed to take exam'
+        }
+    };
+
+    // Function to update permit details
+    function updatePermitDetails(term) {
+        const permitDetails = permitData[term];
+        
+        // Update semester info
+        document.querySelector('.semester-info').innerHTML = `
+            <div>First Semester SY 2024-2025</div>
+            <div>${permitDetails.term}</div>
+        `;
+
+        // Update approval info
+        document.querySelector('.approval-info').innerHTML = `
+            <div>
+                <span>Approved by: </span>
+                <span class="fw-bold">${permitDetails.approvedBy}</span>
+            </div>
+            <div>
+                <span>Approved on: </span>
+                <span class="fw-bold">${permitDetails.approvedOn}</span>
+            </div>
+        `;
+
+        // Update status icon and text
+        const statusContainer = document.querySelector('.text-center.mb-4');
+        statusContainer.innerHTML = `
+            <div class="text-success">
+                <i class="fas fa-circle-check fa-7x"></i>
+                <div class="mt-2">
+                    <strong>${permitDetails.status}</strong>
+                </div>
+            </div>
+        `;
+    }
+
+    // Initial load
+    updatePermitDetails(termSelector.value);
+
+    // Add event listener for term selector changes
+    termSelector.addEventListener('change', function() {
+        updatePermitDetails(this.value);
+    });
+});
+
+// More robust download handler
+function downloadReceipt(studentId) {
+    try {
+        const permitArea = document.querySelector('.downloadable-area');
+        
+        html2canvas(permitArea, {
+            scale: 3, // Even higher resolution
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            // Compress and optimize image
+            const imgData = canvas.toDataURL('image/jpeg', 0.8);
+            
+            const link = document.createElement('a');
+            link.download = `${studentId}_permit.jpg`;
+            link.href = imgData;
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Log download event (optional)
+            logDownload(studentId);
+            
+            // Show confirmation
+            showDownloadConfirmation();
+        });
+    } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+    }
+}
+
+// Optional: Logging function (implement with your backend)
+function logDownload(studentId) {
+    fetch('/log-download', {
+        method: 'POST',
+        body: JSON.stringify({ 
+            studentId: studentId,
+            documentType: 'permit',
+            timestamp: new Date().toISOString()
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+    // Optional: Show confirmation modal after download
+    function showDownloadConfirmation() {
+        const downloadConfirmModal = new bootstrap.Modal(document.getElementById('downloadConfirmModal'));
+        downloadConfirmModal.show();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const downloadButton = document.getElementById('downloadPermit');
+    
+    downloadButton.addEventListener('click', function() {
+        // Clone the permit area, removing the download button
+        const permitArea = document.querySelector('.downloadable-area');
+        const clonedArea = permitArea.cloneNode(true);
+        
+        // Remove download button from cloned area
+        const clonedDownloadButton = clonedArea.querySelector('#downloadPermit');
+        if (clonedDownloadButton) {
+            clonedDownloadButton.remove();
+        }
+        
+        // Create a temporary container to hold the cloned area
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.appendChild(clonedArea);
+        document.body.appendChild(tempContainer);
+        
+        // Capture the cloned area
+        html2canvas(clonedArea, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            // Create download link
+            const link = document.createElement('a');
+            const studentId = '2090389';
+            
+            link.download = `${studentId}_permit.jpg`;
+            link.href = canvas.toDataURL('image/jpeg');
+            
+            // Trigger download
+            link.click();
+            
+            // Remove temporary container
+            document.body.removeChild(tempContainer);
+        }).catch(error => {
+            console.error('Error downloading receipt:', error);
+            alert('Failed to download receipt. Please try again.');
+            
+            // Remove temporary container if error occurs
+            if (document.body.contains(tempContainer)) {
+                document.body.removeChild(tempContainer);
+            }
+        });
+    });
 });
 </script>
