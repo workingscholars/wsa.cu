@@ -1,5 +1,6 @@
-        // Call the function when page loads
-        window.onload = calculateFinalAverage;
+// Call the function when page loads
+window.onload = calculateFinalAverage;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Navigation menu click handler
     document.querySelectorAll('.nav-links a').forEach(link => {
@@ -34,43 +35,43 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('a[data-section="profile"]').classList.add('active');
 });
 
-        // Confirm logout button
-        document.getElementById('confirmLogout').addEventListener('click', function() {
-            // Performing log out actions
-            localStorage.clear();
-            sessionStorage.clear();
-            
-            // Redirect to login page (replace with your actual login page URL)
-            window.location.href = 'index.html';
-        });
+// Confirm logout button
+document.getElementById('confirmLogout').addEventListener('click', function() {
+    // Performing log out actions
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Redirect to login page (replace with your actual login page URL)
+    window.location.href = 'index.html';
+});
 
-    // Calculate Grades
-    function calculateFinalAverage() {
-            const finalGrades = [1.00, 1.00, 1.75, 1.00, 1.10];
-            const average = finalGrades.reduce((a, b) => a + b, 0) / finalGrades.length;
-            
-            // Update average display
-            const averageElement = document.getElementById('finalAverage');
-            averageElement.textContent = average.toFixed(2);
+// Calculate Grades
+function calculateFinalAverage() {
+    const finalGrades = [1.00, 1.00, 1.75, 1.00, 1.10];
+    const average = finalGrades.reduce((a, b) => a + b, 0) / finalGrades.length;
+    
+    // Update average display
+    const averageElement = document.getElementById('finalAverage');
+    averageElement.textContent = average.toFixed(2);
 
-            // Update progress bar
-            const progressBar = document.getElementById('gradeProgress');
-            const progressPercentage = (4.0 - average) / 4.0 * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-        }
+    // Update progress bar
+    const progressBar = document.getElementById('gradeProgress');
+    const progressPercentage = (4.0 - average) / 4.0 * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+}
 
-        // Add hover effects to table rows
-        const tableRows = document.querySelectorAll('#gradesTable tbody tr');
-        tableRows.forEach(row => {
-            row.addEventListener('mouseenter', () => {
-                row.classList.add('table-active');
-            });
-            row.addEventListener('mouseleave', () => {
-                row.classList.remove('table-active');
-            });
-        });
+// Add hover effects to table rows
+const tableRows = document.querySelectorAll('#gradesTable tbody tr');
+tableRows.forEach(row => {
+    row.addEventListener('mouseenter', () => {
+        row.classList.add('table-active');
+    });
+    row.addEventListener('mouseleave', () => {
+        row.classList.remove('table-active');
+    });
+});
 
-        window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function() {
     const navMenu = document.querySelector('.nav-menu');
     if (window.scrollY > 50) {
         navMenu.classList.add('sticky');
@@ -103,12 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add your refresh logic here
         }, 1000);
     });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const semesterSelector = document.getElementById('semesterSelector');
-    const refreshButton = document.getElementById('refreshPermits');
-    const downloadButton = document.getElementById('downloadPermit');
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -179,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// More robust download handler
+// Download handler
 function downloadReceipt(studentId) {
     try {
         const permitArea = document.querySelector('.downloadable-area');
@@ -228,13 +223,13 @@ function logDownload(studentId) {
     });
 }
 
-    // Optional: Show confirmation modal after download
-    function showDownloadConfirmation() {
-        const downloadConfirmModal = new bootstrap.Modal(document.getElementById('downloadConfirmModal'));
-        downloadConfirmModal.show();
-    }
+// Optional: Show confirmation modal after download
+function showDownloadConfirmation() {
+    const downloadConfirmModal = new bootstrap.Modal(document.getElementById('downloadConfirmModal'));
+    downloadConfirmModal.show();
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const downloadButton = document.getElementById('downloadPermit');
     
     downloadButton.addEventListener('click', function() {
@@ -255,8 +250,38 @@ function logDownload(studentId) {
         tempContainer.appendChild(clonedArea);
         document.body.appendChild(tempContainer);
 
-        // Calculate Grade Level w/ Motivation
-        function calculateGradeLevel(grade) {
+        // Capture the cloned area
+        html2canvas(clonedArea, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            // Create download link
+            const link = document.createElement('a');
+            const studentId = '2090389';
+            
+            link.download = `${studentId}_permit.jpg`;
+            link.href = canvas.toDataURL('image/jpeg');
+            
+            // Trigger download
+            link.click();
+            
+            // Remove temporary container
+            document.body.removeChild(tempContainer);
+        }).catch(error => {
+            console.error('Error downloading receipt:', error);
+            alert('Failed to download receipt. Please try again.');
+            
+            // Remove temporary container if error occurs
+            if (document.body.contains(tempContainer)) {
+                document.body.removeChild(tempContainer);
+            }
+        });
+    });
+});
+
+// Calculate Grade Level w/ Motivation
+function calculateGradeLevel(grade) {
     if (grade >= 1.0 && grade < 1.5) {
         return {
             level: "Summa Cum Laude",
@@ -335,22 +360,6 @@ function renderGradesWithMotivation() {
         gradeDetails.push(gradeInfo);
     });
 
-    // Handle click event homeLogo
-    document.addEventListener('DOMContentLoaded', function() {
-    const homeLogo = document.getElementById('homeLogo');
-    
-    homeLogo.addEventListener('click', function() {
-        // Option 1: Reload current page
-        window.location.reload();
-        
-        // Option 2: Redirect to dashboard (if you want to ensure a fresh load)
-        // window.location.href = 'user-dashboard.html';
-    });
-
-    // Optional: Add a cursor hint
-    homeLogo.style.cursor = 'pointer';
-});
-
     // Calculate average
     const averageGrade = totalGrades.reduce((a, b) => a + b, 0) / totalGrades.length;
     averageGradeElement.textContent = averageGrade.toFixed(2);
@@ -378,33 +387,19 @@ function renderGradesWithMotivation() {
 document.addEventListener('DOMContentLoaded', function() {
     renderGradesWithMotivation();
 });
+
+// Handle click event for homeLogo
+document.addEventListener('DOMContentLoaded', function() {
+    const homeLogo = document.getElementById('homeLogo');
+    
+    homeLogo.addEventListener('click', function() {
+        // Option 1: Reload current page
+        window.location.reload();
         
-        // Capture the cloned area
-        html2canvas(clonedArea, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: '#ffffff'
-        }).then(canvas => {
-            // Create download link
-            const link = document.createElement('a');
-            const studentId = '2090389';
-            
-            link.download = `${studentId}_permit.jpg`;
-            link.href = canvas.toDataURL('image/jpeg');
-            
-            // Trigger download
-            link.click();
-            
-            // Remove temporary container
-            document.body.removeChild(tempContainer);
-        }).catch(error => {
-            console.error('Error downloading receipt:', error);
-            alert('Failed to download receipt. Please try again.');
-            
-            // Remove temporary container if error occurs
-            if (document.body.contains(tempContainer)) {
-                document.body.removeChild(tempContainer);
-            }
-        });
+        // Option 2: Redirect to dashboard (if you want to ensure a fresh load)
+        // window.location.href = 'user-dashboard.html';
     });
+
+    // Optional: Add a cursor hint
+    homeLogo.style.cursor = 'pointer';
 });
