@@ -484,3 +484,24 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
+
+/* Custom CSS for the Shop section */
+        #shop .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+        }
+
+        #shop .card:hover {
+            transform: scale(1.05);
+        }
+
+        #shop .card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #shop .badge-success {
+            font-size: 0.8rem;
+        }
