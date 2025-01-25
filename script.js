@@ -727,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add video content
     const videos = [
-        'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
+        'https://www.facebook.com/CapitolUniversity.WSA/videos/505196855901772/',
         'https://www.youtube.com/embed/3JZ_D3ELwOQ',
         'https://www.youtube.com/embed/L_jWHffIx5E'
     ];
