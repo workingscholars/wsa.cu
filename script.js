@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
     videos.forEach((video, index) => {
         const videoItem = document.createElement('div');
         videoItem.classList.add('video-item');
-        videoItem.innerHTML = `<iframe src="${video}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        videoItem.innerHTML = `<iframe src="${video}" frameborder="0"; encrypted-media" allowfullscreen></iframe>`;
         videoContent.appendChild(videoItem);
     });
 });
