@@ -728,8 +728,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add video content
     const videos = [
         'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
-        'https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1',
-        'https://www.youtube.com/embed/L_jWHffIx5E?autoplay=1'
+        'https://www.youtube.com/embed/3JZ_D3ELwOQ',
+        'https://www.youtube.com/embed/L_jWHffIx5E'
     ];
     videos.forEach((video, index) => {
         const videoItem = document.createElement('div');
