@@ -622,3 +622,119 @@ function showDownloadConfirmation() {
     const downloadConfirmModal = new bootstrap.Modal(document.getElementById('downloadConfirmModal'));
     downloadConfirmModal.show();
 }
+
+// Event Functions
+document.addEventListener('DOMContentLoaded', () => {
+    const calendar = document.getElementById('calendar');
+    const pastEventSelect = document.getElementById('pastEventSelect');
+    const upcomingEventSelect = document.getElementById('upcomingEventSelect');
+    const eventHeader = document.getElementById('eventHeader');
+    const reservationFormModal = document.getElementById('reservationFormModal');
+    const reservationFormContainer = document.getElementById('reservationFormContainer');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    const reservationForm = document.getElementById('reservationForm');
+    const videoContent = document.getElementById('videoContent');
+    const tableNumberSpan = document.getElementById('tableNumber');
+    const closeReservationForm = document.getElementById('closeReservationForm');
+    const refreshButton = document.getElementById('refreshButton');
+
+    let currentDate = new Date(); // Default to current date
+
+    const renderCalendar = (date, isUpcomingEvent = false) => {
+        calendar.innerHTML = '';
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        const monthYear = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+        eventHeader.innerText = `Event for ${monthYear}`;
+
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            calendar.innerHTML += '<div class="calendar-day"></div>';
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.classList.add('calendar-day');
+            dayDiv.innerText = day;
+
+            if (isUpcomingEvent && month === 4 && year === 2025 && day >= 7 && day <= 17) {
+                dayDiv.classList.add('present');
+                if (day === 7) {
+                    dayDiv.classList.add('reserved');
+                    dayDiv.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent modal close on click
+                        reservationFormModal.style.display = 'flex';
+                    });
+                }
+            } else {
+                // Randomly assign present or absent class for past events
+                if (Math.random() > 0.5) {
+                    dayDiv.classList.add('present');
+                } else {
+                    dayDiv.classList.add('absent');
+                }
+            }
+            calendar.appendChild(dayDiv);
+        }
+    };
+
+    pastEventSelect.addEventListener('change', (event) => {
+        const [month, year] = event.target.value.split('-');
+        currentDate = new Date(year, month - 1, 1);
+        renderCalendar(currentDate);
+    });
+
+    upcomingEventSelect.addEventListener('change', (event) => {
+        const [month, year] = event.target.value.split('-');
+        currentDate = new Date(year, month - 1, 1);
+        renderCalendar(currentDate, true);
+    });
+
+    reservationForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const studentName = document.getElementById('studentName').value;
+        const studentId = document.getElementById('studentId').value;
+        const tableNumber = Math.floor(Math.random() * 10) + 1; // Random table number between 1 and 10
+        
+        tableNumberSpan.innerText = tableNumber;
+        reservationFormContainer.classList.add('d-none');
+        confirmationMessage.classList.remove('d-none');
+        
+        setTimeout(() => {
+            // Remove blur effect after 30 seconds
+            reservationFormModal.style.display = 'none';
+            reservationFormContainer.classList.remove('d-none');
+            confirmationMessage.classList.add('d-none');
+        }, 30000);
+    });
+
+    closeReservationForm.addEventListener('click', () => {
+        reservationFormModal.style.display = 'none';
+    });
+
+    refreshButton.addEventListener('click', () => {
+        pastEventSelect.selectedIndex = 0;
+        upcomingEventSelect.selectedIndex = 0;
+        calendar.innerHTML = '';
+        eventHeader.innerText = '';
+    });
+
+    // Initial render
+    renderCalendar(currentDate);
+
+    // Add video content
+    const videos = [
+        'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
+        'https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1',
+        'https://www.youtube.com/embed/L_jWHffIx5E?autoplay=1'
+    ];
+    videos.forEach((video, index) => {
+        const videoItem = document.createElement('div');
+        videoItem.classList.add('video-item');
+        videoItem.innerHTML = `<iframe src="${video}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        videoContent.appendChild(videoItem);
+    });
+});
