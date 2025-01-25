@@ -39,19 +39,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#grades" data-section="grades">
+                    <a class="nav-link" href="#event" data-section="event">
                         <div class="nav-icon-circle">
-                            <i class="fas fa-graduation-cap"></i>
+                            <i class="fas fa-calendar-check"></i>
                         </div>
-                        <span>Grades</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#ledger" data-section="ledger">
-                        <div class="nav-icon-circle">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <span>Student Ledger</span>
+                        <span>Event</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -84,14 +76,6 @@
                             <i class="fas fa-clipboard-list"></i>
                         </div>
                         <span>Obligations</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#studyloads" data-section="studyloads">
-                        <div class="nav-icon-circle">
-                            <i class="fas fa-clipboard-list"></i>
-                        </div>
-                        <span>Study Loads</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -229,84 +213,72 @@
         </div>
     </div>
 
-    <!-- Grades Section -->
-    <div id="grades" class="section-content" style="display:none;">
-        <!-- Average Grade Section -->
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="average-grade-card">
-                        <h3>AVERAGE FINAL GRADE</h3>
-                        <h1 id="finalAverage" class="display-4">0.00</h1>
-                        <div class="progress">
-                            <div id="gradeProgress" class="progress-bar bg-warning" role="progressbar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Event Section -->
+<div id="event" class="section-content" style="display:none;">
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <label for="pastEventSelect" class="form-label">Past Events:</label>
+            <select class="form-select" id="pastEventSelect">
+                <option value="" selected disabled>Select a past event</option>
+                <option value="7-2024">WSA Sportsfest 2024 - July</option>
+                <option value="8-2024">WSA Organizational Meeting 2024 - August</option>
+                <option value="11-2024">WSA CU-Mustahan 2024 - November</option>
+            </select>
         </div>
-
-        <!-- Grades Table -->
-        <div class="container mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-table me-2"></i>Detailed Grades</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="gradesTable">
-                            <thead class="table-danger">
-                                <tr>
-                                    <th>SUBJECTS</th>
-                                    <th>PRELIM</th>
-                                    <th>MIDTERM</th>
-                                    <th>FINALS</th>
-                                    <th>STATUS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>INTRO TO COMPUTING</td>
-                                    <td>1.50</td>
-                                    <td>1.25</td>
-                                    <td>1.00</td>
-                                    <td><span class="badge bg-success grade-badge">PASSED</span></td>
-                                </tr>
-                                <tr>
-                                    <td>INTRO TO PROGRAMMING</td>
-                                    <td>1.25</td>
-                                    <td>1.25</td>
-                                    <td>1.00</td>
-                                    <td><span class="badge bg-success grade-badge">PASSED</span></td>
-                                </tr>
-                                <tr>
-                                    <td>PROGRAM LOGIC FORMULATION</td>
-                                    <td>1.20</td>
-                                    <td>1.50</td>
-                                    <td>1.75</td>
-                                    <td><span class="badge bg-success grade-badge">PASSED</span></td>
-                                </tr>
-                                <tr>
-                                    <td>GENERAL ORIENTATION</td>
-                                    <td>1.00</td>
-                                    <td>1.00</td>
-                                    <td>1.00</td>
-                                    <td><span class="badge bg-success grade-badge">PASSED</span></td>
-                                </tr>
-                                <tr>
-                                    <td>ORIENTATION TO IT CAREERS</td>
-                                    <td>1.20</td>
-                                    <td>1.20</td>
-                                    <td>1.10</td>
-                                    <td><span class="badge bg-success grade-badge">PASSED</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <label for="upcomingEventSelect" class="form-label">Upcoming Events:</label>
+            <select class="form-select" id="upcomingEventSelect">
+                <option value="" selected disabled>Select an upcoming event</option>
+                <option value="5-2025">WSA-CU Mustahan 2025 - May</option>
+            </select>
+        </div>
+        <div>
+            <button id="refreshButton" class="btn btn-outline-secondary mt-4">Refresh</button>
         </div>
     </div>
+    <h3 id="eventHeader"></h3>
+    <div class="calendar" id="calendar"></div>
+    <div class="mt-3">
+        <h3>Event Details</h3>
+        <div id="eventDetails">
+            <!-- Event details content here -->
+        </div>
+    </div>
+    <div class="video-content" id="videoContent">
+        <!-- Videos will be added here -->
+    </div>
+</div>
+
+<!-- Reservation Form Modal -->
+<div class="blur-background" id="reservationFormModal" style="display:none;">
+    <div class="reservation-form">
+        <button type="button" class="btn-close" aria-label="Close" id="closeReservationForm"></button>
+        <div id="reservationFormContainer">
+            <h4>Reserve Your Seat</h4>
+            <form id="reservationForm">
+                <div class="mb-3">
+                    <label for="studentName" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="studentId" class="form-label">Student ID:</label>
+                    <input type="text" class="form-control" id="studentId" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Reserve</button>
+            </form>
+        </div>
+        <div id="confirmationMessage" class="d-none text-center">
+            <div class="checkmark-circle">
+                <div class="background"></div>
+                <div class="checkmark draw"></div>
+            </div>
+            <h4 class="mt-3">You are assigned to VIP Set <span id="tableNumber"></span>.</h4>
+            <p>The event will start at: 5PM</p>
+            <p>Thank you for reserving!</p>
+            <p><strong>Note:</strong> Make a screenshot of this so that you can make the Faculty verify your set!</p>
+        </div>
+    </div>
+</div>
 
     <!-- Student Ledger Section -->
     <div id="ledger" class="section-content" style="display:none;">
@@ -589,153 +561,7 @@
     </div>
 </div>
 
-<!-- Study Loads Section -->
-<div id="studyloads" class="section-content" style="display:none;">
-    <div class="card">
-        <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
-            <span></span>
-            <div class="d-flex align-items-center">
-                <div class="me-3">
-                    <select class="form-select form-select-sm" id="semesterSelector">
-                        <option>FIRST SEM SY 2024-2025</option>
-                    </select>
-                </div>
-                <button class="btn btn-light btn-sm" id="refreshStudyLoads" title="Refresh Study Loads">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <p class="mb-1"><strong>Enrollment Status:</strong> ENROLLED</p>
-                </div>
-                <div class="col-md-4">
-                    <p class="mb-1"><strong>Semester Total Units:</strong> 15 unit(s)</p>
-                </div>
-            </div>
 
-            <table id="study-loads-table" class="table table-striped table-hover">
-                <thead class="table-danger">
-                    <tr>
-                        <th>Section Code</th>
-                        <th>Subject</th>
-                        <th>Description</th>
-                        <th>Units</th>
-                        <th>Time</th>
-                        <th>Day</th>
-                        <th>Room</th>
-                        <th>Block Code</th>
-                        <th>Instructor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>IT1</td>
-                        <td>ORIENT 1</td>
-                        <td>GENERAL ORIENTATION</td>
-                        <td>1</td>
-                        <td>08:30AM-09:30AM</td>
-                        <td>M</td>
-                        <td>323</td>
-                        <td>1A</td>
-                        <td>CYRIL JANE COCA RANIDO</td>
-                    </tr>
-                    <tr>
-                        <td>IT6</td>
-                        <td>CompSci 4</td>
-                        <td>Introduction to Programming (Other Sched.)</td>
-                        <td>3</td>
-                        <td>10:00AM-12:00PM</td>
-                        <td>M</td>
-                        <td>IncuRmCS</td>
-                        <td>1A</td>
-                        <td>CHRISTIAN JADE N. NALAGON</td>
-                    </tr>
-                    <tr>
-                        <td>IT5</td>
-                        <td>IT 101</td>
-                        <td>PROGRAM LOGIC FORMULATION</td>
-                        <td>3</td>
-                        <td>10:00AM-12:00PM</td>
-                        <td>TueThu</td>
-                        <td>323</td>
-                        <td>1A</td>
-                        <td>CHRISTIAN JADE N. NALAGON</td>
-                    </tr>
-                    <tr>
-                        <td>IT6</td>
-                        <td>CompSci 4</td>
-                        <td>Introduction to Programming</td>
-                        <td>3</td>
-                        <td>03:00PM-04:30PM</td>
-                        <td>TueThu</td>
-                        <td>CL-A</td>
-                        <td>1A</td>
-                        <td>CHRISTIAN JADE N. NALAGON</td>
-                    </tr>
-                    <tr>
-                        <td>IT3</td>
-                        <td>IT 102</td>
-                        <td>Introduction to Computing</td>
-                        <td>3</td>
-                        <td>10:00AM-12:00PM</td>
-                        <td>W</td>
-                        <td>323</td>
-                        <td>1A</td>
-                        <td>MILO SALDON CAGANDAHAN</td>
-                    </tr>
-                    <tr>
-                        <td>IT3</td>
-                        <td>IT 102</td>
-                        <td>Introduction to Computing (Other Sched.)</td>
-                        <td>3</td>
-                        <td>10:00AM-12:00PM</td>
-                        <td>W</td>
-                        <td>CL-A</td>
-                        <td>1A</td>
-                        <td>MILO SALDON CAGANDAHAN</td>
-                    </tr>
-                    <tr>
-                        <td>IT2</td>
-                        <td>IT 100</td>
-                        <td>Orientation to IT Careers</td>
-                        <td>1</td>
-                        <td>08:00AM-09:00AM</td>
-                        <td>F</td>
-                        <td>323</td>
-                        <td>1A</td>
-                        <td>CYRIL JANE COCA RANIDO</td>
-                    </tr>
-                    <tr>
-                        <td>IT4</td>
-                        <td>IT 103</td>
-                        <td>IT Project 1</td>
-                        <td>1</td>
-                        <td>09:30AM-10:30AM</td>
-                        <td>F</td>
-                        <td>323</td>
-                        <td>1A</td>
-                        <td>CHRISTIAN JADE N. NALAGON</td>
-                    </tr>
-                    <tr>
-                        <td>WS3</td>
-                        <td>NSTP 1</td>
-                        <td>National Service Training Program 1</td>
-                        <td>3</td>
-                        <td>09:00AM-12:00PM</td>
-                        <td>Sat</td>
-                        <td>WS/SF</td>
-                        <td>WSA/SF</td>
-                        <td>AMOR YAMOMO MENDOZA</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
- <!-- Add this just before the closing </body> tag -->
 <!-- Logout Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -763,6 +589,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="script.js"></script>
-
+<script>
+</script>
 </body>
 </html>
