@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Redirect after a short delay
                 setTimeout(() => {
-                    window.location.href = '/myStudent/user-dashboard.html';
+                    window.location.href = 'myStudent/user-dashboard.html';
                 }, 2000);
             } else {
                 // Add shake animation for invalid login
