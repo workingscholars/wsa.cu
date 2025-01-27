@@ -32,6 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, and other common shortcuts applied to all
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+            (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+        }
+    });
+
     // Initially show profile section and set its menu item as active
     document.getElementById('profile').style.display = 'block';
     document.querySelector('a[data-section="profile"]').classList.add('active');
